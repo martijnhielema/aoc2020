@@ -11,7 +11,7 @@ for right_steps, down_steps in slopes:
     down = 0
     right = 0
     while down < len(layout):
-        right = right % len(layout[0])
+        right %= len(layout[0])
         if layout[down][right] == '#':
             trees += 1
 
