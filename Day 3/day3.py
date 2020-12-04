@@ -1,7 +1,6 @@
 with open('../input/day3.txt', 'r') as f:
     layout = [line.strip() for line in f.readlines()]
 
-
 down_steps = 1
 right_steps = 3
 slopes = ((1,1), (3,1), (5,1), (7,1), (1,2))
