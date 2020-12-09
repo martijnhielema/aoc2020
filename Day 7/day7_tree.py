@@ -9,12 +9,13 @@ class WNode(NodeMixin):
         self.name = foo
         self.parent = parent
         self.number = int(number) if parent is not None else 1
+        self.bags_children_plus1 = 1
 
     def _post_detach(self, parent):
         self.weight = None
 
 
-with open('../input/day7_example.txt', 'r') as f:
+with open('../input/day7.txt', 'r') as f:
     raw_rules = [x.strip() for x in f.readlines()]
 
 bags = defaultdict(list)
@@ -49,18 +50,43 @@ while len(to_process) > 0:
             to_process.append(node_name)
 
 for pre, _, node in RenderTree(nodes['shiny gold']):
-    print("%s%s (%s)" % (pre, node.name, node.number or 0))
+    print("%s%s (%s, level: %s)" % (pre, node.name, node.number or 0, node.depth))
 
-total = 0
-for leaf in nodes['shiny gold'].leaves:
-    subtotal = 1
-    subtotal_non_multiply = 0
-    for node in leaf.path:
-        subtotal *= node.number
-        if not node.is_leaf:
-            subtotal_non_multiply += 1
-    total += subtotal
-    total += subtotal_non_multiply
+leaves = list(nodes['shiny gold'].leaves)
+maxdepth = max([leaf.depth for leaf in leaves])
+while maxdepth > 0:
+    deepest_leaves = [leaf for leaf in leaves if leaf.depth == maxdepth]
+    print(maxdepth)
+    print([(l.name, l.number, l.parent.name, l.bags_children_plus1) for l in deepest_leaves])
+    for leaf in deepest_leaves:
+        node_total = 0
+        node_total += leaf.number * leaf.bags_children_plus1
+        for sibling in leaf.siblings:
+            node_total += sibling.number * sibling.bags_children_plus1
+            deepest_leaves.remove(sibling)
+            sibling.parent = None
 
-print(total)
+        leaf.parent.bags_children_plus1 = node_total + 1
+        # print(leaf.parent.bags_children_plus1)
+        leaf.parent = None
+    leaves = list(nodes['shiny gold'].leaves)
+    maxdepth = max([leaf.depth for leaf in leaves])
+
+# while len(leaves) >= 1 and leaves[0].name != 'shiny gold':
+#     maxdepth = max([leaf.depth for leaf in leaves])
+#     for leaf in [leaf for leaf in leaves if leaf.depth == maxdepth]:
+#         node_total = 0
+#         node_total += leaf.number * leaf.bags_children_plus1
+#         for sibling in leaf.siblings:
+#             node_total += sibling.number * sibling.bags_children_plus1
+#             leaves.remove(sibling)
+#             sibling.parent = None
+#
+#         leaf.parent.bags_children_plus1 = node_total + 1
+#         # print(leaf.parent.bags_children_plus1)
+#         leaf.parent = None
+#
+#     leaves = list(nodes['shiny gold'].leaves)
+print('Answer:')
+print(nodes['shiny gold'].bags_children_plus1 - 1)
 
