@@ -11,9 +11,6 @@ class WNode(NodeMixin):
         self.number = int(number) if parent is not None else 1
         self.bags_children_plus1 = 1
 
-    def _post_detach(self, parent):
-        self.weight = None
-
 
 with open('../input/day7.txt', 'r') as f:
     raw_rules = [x.strip() for x in f.readlines()]
@@ -67,7 +64,6 @@ while max_depth > 0:
             sibling.parent = None
 
         leaf.parent.bags_children_plus1 = node_total + 1
-        # print(leaf.parent.bags_children_plus1)
         leaf.parent = None
     leaves = list(nodes['shiny gold'].leaves)
     max_depth = max([leaf.depth for leaf in leaves])
