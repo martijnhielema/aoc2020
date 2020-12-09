@@ -49,14 +49,14 @@ while len(to_process) > 0:
             nodes[node_name] = WNode(node_name, parent=nodes[name], number=j[1])
             to_process.append(node_name)
 
-for pre, _, node in RenderTree(nodes['shiny gold']):
-    print("%s%s (%s, level: %s)" % (pre, node.name, node.number or 0, node.depth))
+# for pre, _, node in RenderTree(nodes['shiny gold']):
+#     print("%s%s (%s, level: %s)" % (pre, node.name, node.number or 0, node.depth))
 
 leaves = list(nodes['shiny gold'].leaves)
-maxdepth = max([leaf.depth for leaf in leaves])
-while maxdepth > 0:
-    deepest_leaves = [leaf for leaf in leaves if leaf.depth == maxdepth]
-    print(maxdepth)
+max_depth = max([leaf.depth for leaf in leaves])
+while max_depth > 0:
+    deepest_leaves = [leaf for leaf in leaves if leaf.depth == max_depth]
+    print(max_depth)
     print([(l.name, l.number, l.parent.name, l.bags_children_plus1) for l in deepest_leaves])
     for leaf in deepest_leaves:
         node_total = 0
@@ -70,23 +70,7 @@ while maxdepth > 0:
         # print(leaf.parent.bags_children_plus1)
         leaf.parent = None
     leaves = list(nodes['shiny gold'].leaves)
-    maxdepth = max([leaf.depth for leaf in leaves])
+    max_depth = max([leaf.depth for leaf in leaves])
 
-# while len(leaves) >= 1 and leaves[0].name != 'shiny gold':
-#     maxdepth = max([leaf.depth for leaf in leaves])
-#     for leaf in [leaf for leaf in leaves if leaf.depth == maxdepth]:
-#         node_total = 0
-#         node_total += leaf.number * leaf.bags_children_plus1
-#         for sibling in leaf.siblings:
-#             node_total += sibling.number * sibling.bags_children_plus1
-#             leaves.remove(sibling)
-#             sibling.parent = None
-#
-#         leaf.parent.bags_children_plus1 = node_total + 1
-#         # print(leaf.parent.bags_children_plus1)
-#         leaf.parent = None
-#
-#     leaves = list(nodes['shiny gold'].leaves)
 print('Answer:')
 print(nodes['shiny gold'].bags_children_plus1 - 1)
-
