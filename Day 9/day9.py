@@ -30,8 +30,6 @@ def find_range(number:int, lst: list):
         for i in range(startpos, len(lst)):
             sum += lst[i]
             if sum == number and i != startpos:
-                print(startpos, i)
-                print(numbers[startpos:i+1])
                 minn = min(numbers[startpos:i+1])
                 maxn = max(numbers[startpos:i+1])
                 print(minn + maxn)
@@ -45,4 +43,5 @@ def find_range(number:int, lst: list):
 
 if __name__ == '__main__':
     errnum = find_number(numbers, 25)
+    print(errnum)
     find_range(errnum, numbers)
