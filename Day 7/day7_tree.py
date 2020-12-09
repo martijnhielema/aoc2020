@@ -1,6 +1,5 @@
 from collections import defaultdict
-from anytree import NodeMixin, RenderTree, PreOrderIter
-import anytree
+from anytree import NodeMixin
 
 
 class WNode(NodeMixin):
@@ -29,8 +28,7 @@ for raw in raw_rules:
             name = content[2:]
             bags[bag].append((name.strip(), number))
 
-nodes = {}
-nodes['shiny gold'] = WNode('shiny gold')
+nodes = {'shiny gold': WNode('shiny gold')}
 to_process = ['shiny gold']
 
 while len(to_process) > 0:
