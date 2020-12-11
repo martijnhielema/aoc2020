@@ -1,6 +1,6 @@
 from functools import reduce
-
 import networkx as nx
+import matplotlib.pyplot as plt
 
 with open('../input/day10.txt', 'r') as f:
     adapters = [int(x.strip()) for x in f.readlines()]
