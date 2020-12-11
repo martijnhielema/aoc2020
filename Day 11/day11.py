@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 
-with open('../input/day11.txt', 'r') as f:
+with open('../input/day11.txt.txt', 'r') as f:
     layout = tuple(tuple(x.strip('\n')) for x in f.readlines())
 
 
