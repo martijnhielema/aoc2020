@@ -1,4 +1,4 @@
-from math import floor
+from math import floor, lcm
 
 
 with open('../input/day13_example.txt', 'r') as f:
@@ -12,7 +12,6 @@ with open('../input/day13_example.txt', 'r') as f:
 bus_id = None
 min_wait_time = 1000000000000
 
-
 for bus in buses:
     next_departure = (floor(timestamp/bus) + 1) * bus
     wait_time = next_departure - timestamp
@@ -25,5 +24,3 @@ print(bus_id * min_wait_time)
 print('--------------------------')
 
 t = 0
-while True:
-    break
