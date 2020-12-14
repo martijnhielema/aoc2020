@@ -13,23 +13,37 @@ for i in instructions:
     if i[0] in directions:
         direction = i[0]
     elif i[0] == 'F':
-        direction = directions[facing]
+        x += int(i[1:]) * waypoint_x
+        y += int(i[1:]) * waypoint_y
+        continue
     elif i[0] == 'L':
         steps = int(i[1:]) // 90
-        facing = (facing - steps) % 4
+        # facing = (facing - steps) % 4
+        for i in range(0, steps):
+            new_x = -waypoint_y
+            new_y = waypoint_x
+
+            waypoint_x = new_x
+            waypoint_y = new_y
         continue
     elif i[0] == 'R':
         steps = int(i[1:]) // 90
-        facing = (facing + steps) % 4
+        # facing = (facing + steps) % 4
+        for i in range(0, steps):
+            new_x = waypoint_y
+            new_y = -waypoint_x
+
+            waypoint_x = new_x
+            waypoint_y = new_y
         continue
 
     if direction == 'N':
-        y += int(i[1:])
+        waypoint_y += int(i[1:])
     elif direction == 'S':
-        y -= int(i[1:])
+        waypoint_y -= int(i[1:])
     elif direction == 'E':
-        x += int(i[1:])
+        waypoint_x += int(i[1:])
     elif direction == 'W':
-        x -= int(i[1:])
+        waypoint_x -= int(i[1:])
 
 print(abs(x) + abs(y))
