@@ -129,13 +129,31 @@ print([i for i in all_rules if i not in allocated])
 print(candidates)
 departure_keys = [key for (key, value) in fixed_fields.items() if value.startswith('departure')]
 print(departure_keys)
-for i in departure_keys:
-    print(i, candidates[i])
-    orig_candidates[i] = candidates[i]
-
-for i in [x for x in range(len(my_ticket)) if x not in candidates.keys()]:
-    orig_candidates[i] = list(rules.keys())
-
+# for i in departure_keys:
+#     orig_candidates[i] = candidates[i]
+#
+# for i in [x for x in range(len(my_ticket)) if x not in candidates.keys()]:
+#     orig_candidates[i] = list(rules.keys())
+#
+# i = 0
+# fixed_fields = {}
+# candidates = deepcopy(orig_candidates)
+#
+# while max((len(x) for x in candidates.values())) > 1 and i < 100000:
+#     old_candidates = deepcopy(candidates)
+#     candidates, fixed_fields = eliminate_candidates(deepcopy(old_candidates), fixed_fields)
+#     if old_candidates == candidates:
+#         break
+#     i += 1
+#
+#
+# allocated = list(chain.from_iterable(candidates.values()))
+# all_rules = rules.keys()
+# print(i)
+# print([i for i in all_rules if i not in allocated])
+# print(candidates)
+# departure_keys = [key for (key, value) in fixed_fields.items() if value.startswith('departure')]
+# print(departure_keys)
 
 print(fixed_fields)
 solved = [7, 13, 16, 17, 19]
@@ -143,4 +161,7 @@ answer = 1
 for i in solved:
     answer *= int(my_ticket[i])
 
-print(answer)
+print(answer * int(my_ticket[4]))
+print(answer * int(my_ticket[9]))
+print(answer * int(my_ticket[10]))
+
